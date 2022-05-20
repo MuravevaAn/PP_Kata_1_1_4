@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-    private final Connection connection = Util.getConnection();
+   private final Connection connection = Util.getConnection();
 
     public UserDaoJDBCImpl() {
 
@@ -20,7 +20,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void createUsersTable() {
 
-        String sql = "CREATE TABLE IF NOT EXISTS Users (id BIGINT AUTO_INCREMENT, " +
+        String sql = "CREATE TABLE IF NOT EXISTS User (id BIGINT AUTO_INCREMENT, " +
                 "name VARCHAR(255) NOT NULL, " +
                 "lastName VARCHAR(255) NOT NULL, " +
                 "age TINYINT NOT NULL, " +
@@ -36,7 +36,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void dropUsersTable() {
-        String sql = "DROP TABLE IF EXISTS Users;";
+        String sql = "DROP TABLE IF EXISTS User;";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.executeUpdate();
@@ -47,7 +47,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void saveUser(String name, String lastName, byte age) {
-        String sql = "INSERT INTO Users(name, lastname, age)" +
+        String sql = "INSERT INTO User(name, lastname, age)" +
                 "VALUES (?, ?, ?);";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -64,7 +64,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void removeUserById(long id) {
-        String sql = "DELETE FROM Users WHERE id = ?";
+        String sql = "DELETE FROM User WHERE id = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setLong(1, id);
